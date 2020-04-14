@@ -27,3 +27,4 @@ void drawbar(int, int);
 void setbgcolor(int);
 void setcolors(int, int);
 Position getscreensize(void);
+int devicestatus(void);

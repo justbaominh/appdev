@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <i386-linux-gnu/curl/curl.h>
 
-#define URL "http://www.cc.puv.fi/~e1900309/php/appdev.php"
+#define URL "http://www.cc.puv.fi/~e1900298/php/appdev.php"
 
 int main(void) {
 	CURL *curl;
@@ -13,7 +13,7 @@ int main(void) {
 
 	if(curl) {
 		curl_easy_setopt(curl, CURLOPT_URL, URL);
-		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "name=kimtran&ID=e1900309");
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "name=NguyenBaoMinh&ID=e1900298");
 		res = curl_easy_perform(curl);
 		if(res != CURLE_OK)
 			fprintf(stderr, "curl_easy_perform() failed: %s\n",

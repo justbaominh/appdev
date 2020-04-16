@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include "screen.h"
 #include "comm.h"
+#include "sound.h"
 
 int main(void) {
 	Position cur = getscreensize();
@@ -54,7 +55,7 @@ int main(void) {
 	//printf("The following message will be in YELLOW color\n");
 	gotoXY(14, 35);
 	setfgcolor(MAGENTA);
-	printf("e1900309\n");
+	printf("e1900298\n");
 	//getchar();
 	drawbar(30, 30);
 	drawbar(50, 30);
@@ -63,6 +64,14 @@ int main(void) {
 	resetcolor();
 	clearscreen();
 	printf("\nThis line is back to default color\n");
+
+	FILE *fp;
+	fp = fopen("test.wav","r");
+	WAVheader h =  readwavhdr(fp);
+	fclose(fp);
+	displayWAVhdr(h);
+
+
 
 	return 0;
 }

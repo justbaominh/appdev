@@ -31,7 +31,7 @@ void gotoXY(int row, int col) {
 void drawbar(int col, int row) {
 	int i;
 	for(i = 1; i <= row; i++) {
-		gotoXY(i, col);
+		gotoXY(35-i, col);
 #ifdef UNICODE
 		printf("%s", BAR);
 #else

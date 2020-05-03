@@ -13,6 +13,8 @@ General Description of the Application
  5. Copyright and licensing information:
  6. Contact information
  7. Credits and acknowledgements
+
+*** Details ***
  1. Configuration instructions
 	In this section you need to tell the user how to configure the
 	systems to run this app.

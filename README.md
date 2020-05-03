@@ -37,7 +37,7 @@ etc.
 	archiving rule; used to compile .c file into .o files for execution
 	testcurl.c: contains main funtion to implement curl
 	testscreen.c:	contains main function to run animation on screen.
-	sound.php:  
+	sound.php: which help display information on http://www.cc.puv.fi/~e1900298/php/sound.log  
 5. Copyright and licensing information
 	This application follows GPLv2 license
 6. Contact information: baominh280101@gmail.com

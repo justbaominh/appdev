@@ -10,12 +10,12 @@ int main(void) {
 	fp = fopen("test.wav","r");
 	WAVheader h =  readwavhdr(fp);
 	displayWAVhdr(h);
+	clearscreen();
 //	getchar();
 //	clearscreen();
 	wavdata(h, fp);
 	fclose(fp);
 	getchar();
 	clearscreen();
-	gotoXY(1,1);
 	return 0;
 }

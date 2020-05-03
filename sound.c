@@ -2,7 +2,7 @@
 #include "sound.h"
 #include <math.h>
 #include "screen.h"
-
+#include "comm.h"
 WAVheader readwavhdr(FILE *fp) {
 	WAVheader myh;
 	fread(&myh, sizeof(myh), 1, fp);
@@ -26,7 +26,8 @@ void wavdata(WAVheader h, FILE *fp) {
 	// 5*16000 = 800000 samples, we want to display into 160 bars
 	short samples[500];
 	double array[160];
-	
+	double max = 0.0;
+	int peaks = 0, flag = 0;
 	for (int i = 0; i < 160; i++){
 		fread(samples, sizeof(samples), 1, fp);
 		double sum = 0.0;
@@ -34,26 +35,36 @@ void wavdata(WAVheader h, FILE *fp) {
 			sum += samples[j]*samples[j];
 		}
 		double re = sqrt(sum/500);
-		array[i] = 20*log10(re);
-	}
-	int count = 0;
-	for (int i = 0; i < 160; i++) {
-		if (array[i] > array[i-1] && array[i] < array[i+1]) count +=1;
-}
-	printf("Duration: %lf\n", (float)h.subchunk2Size/h.byteRate);
-	printf("Number of peak: %d", count);
-	for (int i = 0; i < 160; i++){
+		double result = 20*log10(re);
+
+	if (result > max) max = result;
+
 #ifdef SDEBUG
 	printf("db[%d] = %lf\n",i+1, 20*log10(re));
 #else
 	// displaybar for re value
-	if(array[i] > 70) {
+	if (result > max) max = result;
+		if(result > 60){
+		if(flag ==0){
+			flag=1;
+			peaks++;
+		}
 		setfgcolor(RED);
-		drawbar(i+1, (int)array[i]/3);
-		resetcolor();
 	}
-	else drawbar(i+1, (int)array[i]/3);
+	else{
+		flag=0;
+	}
+	drawbar(i+1, (int)result/3);
+	resetcolor();
 #endif
 	}
+	char sound_data[200];	
+	sprintf(sound_data, "peaks=%d&max=%f", peaks, max);
+	senddata(sound_data, URL);
+	gotoXY(1,1);
+	printf("Sample Rate: %d\n", h.sampleRate);
+	printf("Duration: %f s\n", (float)h.subchunk2Size/h.byteRate);
+	printf("Peaks: %d\n", peaks);
+	printf("Maximum decibel value: %lf decibels\n", max);
 }
  // end of file 
